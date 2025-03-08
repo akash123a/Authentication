@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company & User Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen p-6">
+
+<div class="bg-white p-6 rounded-lg shadow-md w-full max-w-4xl">
+    <h2 class="text-3xl font-bold text-center mb-6">Company & User Management</h2>
+
+    <!-- ✅ Company Form -->
+    <div class="mb-6">
+        <h3 class="text-xl font-semibold mb-2">Create Company</h3>
+        <form id="companyForm" class="space-y-4">
+            <input type="text" id="companyName" placeholder="Company Name" required class="w-full p-2 border rounded">
+            <input type="text" id="companyDomain" placeholder="Domain" required class="w-full p-2 border rounded">
+            <input type="number" id="userId" placeholder="User ID" required class="w-full p-2 border rounded">
+            <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Create Company</button>
+        </form>
+    </div>
+
+    <!-- ✅ User Form -->
+    <div class="mb-6">
+        <h3 class="text-xl font-semibold mb-2">Create User</h3>
+        <form id="userForm" class="space-y-4">
+            <input type="text" id="userName" placeholder="Name" required class="w-full p-2 border rounded">
+            <input type="email" id="userEmail" placeholder="Email" required class="w-full p-2 border rounded">
+            <input type="text" id="userRole" placeholder="Role" required class="w-full p-2 border rounded">
+            <input type="password" id="userPassword" placeholder="Password" required class="w-full p-2 border rounded">
+            <input type="number" id="userCompanyId" placeholder="Company ID" required class="w-full p-2 border rounded">
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Create User</button>
+        </form>
+    </div>
+
+    <!-- ✅ Companies Table -->
+    <h3 class="text-xl font-semibold mt-6">Companies List</h3>
+    <table class="w-full mt-4 border-collapse border border-gray-300">
+        <thead>
+        <tr class="bg-gray-200">
+            <th class="border p-2">ID</th>
+            <th class="border p-2">Name</th>
+            <th class="border p-2">Domain</th>
+        </tr>
+        </thead>
+        <tbody id="companyTable"></tbody>
+    </table>
+
+    <!-- ✅ Users Table -->
+    <h3 class="text-xl font-semibold mt-6">Users List</h3>
+    <table class="w-full mt-4 border-collapse border border-gray-300">
+        <thead>
+        <tr class="bg-gray-200">
+            <th class="border p-2">ID</th>
+            <th class="border p-2">Name</th>
+            <th class="border p-2">Email</th>
+            <th class="border p-2">Role</th>
+            <th class="border p-2">Company</th>
+        </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+</div>
+
+<script>
+    const API_URL = "http://localhost:8080";  // ✅ Adjust to your backend URL
+
+// ✅ Create Company
+document.getElementById("companyForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    let company = {
+        name: document.getElementById("companyName").value,
+        domain: document.getElementById("companyDomain").value,
+        userId: parseInt(document.getElementById("userId").value)
+    };
+
+    let response = await fetch(`${API_URL}/api/companies/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(company)
+    });
+
+    if (response.ok) {
+        alert("Company Created!");
+        loadCompanies();
+    } else {
+        alert("Error creating company.");
+    }
+});
+
+// ✅ Create User
+document.getElementById("userForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    let user = {
+        name: document.getElementById("userName").value,
+        email: document.getElementById("userEmail").value,
+        role: document.getElementById("userRole").value,
+        password: document.getElementById("userPassword").value,
+        companyId: parseInt(document.getElementById("userCompanyId").value)
+    };
+
+    let response = await fetch(`${API_URL}/api/users/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user)
+    });
+
+    if (response.ok) {
+        alert("User Created!");
+        loadUsers();
+    } else {
+        alert("Error creating user.");
+    }
+});
+
+// ✅ Load Companies & Users
+async function loadCompanies() {
+    let response = await fetch(`${API_URL}/api/companies`);
+    let data = await response.json();
+    document.getElementById("companyTable").innerHTML = data.map(c => `<tr><td>${c.id}</td><td>${c.name}</td><td>${c.domain}</td></tr>`).join("");
+}
+
+async function loadUsers() {
+    let response = await fetch(`${API_URL}/api/users`);
+    let data = await response.json();
+    document.getElementById("userTable").innerHTML = data.map(u => `<tr><td>${u.id}</td><td>${u.name}</td><td>${u.email}</td><td>${u.role}</td><td>${u.companyName}</td></tr>`).join("");
+}
+
+loadCompanies();
+loadUsers();
+
+</script>
+</body>
+</html>
