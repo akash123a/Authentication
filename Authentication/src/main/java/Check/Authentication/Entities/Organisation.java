@@ -22,7 +22,7 @@ public class Organisation {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Subscription subscription;
+     Subscription subscription;
 
     @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> users;
