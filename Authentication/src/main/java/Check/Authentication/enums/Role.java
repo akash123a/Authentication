@@ -2,6 +2,6 @@ package Check.Authentication.enums;
 
 public enum Role {
 
-    DEVELOPER  , lEAD_MANAGER ,MEMBER;
+    ADMIN   ,  DEVELOPER  , lEAD_MANAGER ,MEMBER;
 
 }
