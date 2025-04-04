@@ -25,7 +25,7 @@
 //        }
 //    }
 //}
-
+//
 
 
 
@@ -70,7 +70,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/organisation") // Match frontend's request URL
+@RequestMapping("/api/payment") // Match frontend's request URL
 @CrossOrigin(origins = "http://localhost:5173") // Allow frontend access
 public class OrganisationSignupController {
 

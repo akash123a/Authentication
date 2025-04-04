@@ -294,4 +294,21 @@ public class OrganisationService {
     public Organisation saveOrganisation(Organisation organisation) {
         return organisationRepository.save(organisation);
     }
+
+    // ✅ Process incoming data from Payment Gateway
+    public void processPaymentData(OrganisationDTO organisationDTO) {
+        Optional<Organisation> existingOrganisation = organisationRepository.findByEmail(organisationDTO.getEmail());
+
+        if (existingOrganisation.isPresent()) {
+            Organisation organisation = existingOrganisation.get();
+            organisation.setSubscription(organisationDTO.getSubscription()); // ✅ Update subscription
+            organisationRepository.save(organisation);
+            System.out.println("Organisation subscription updated for: " + organisationDTO.getEmail());
+        } else {
+            System.out.println("Organisation not found for email: " + organisationDTO.getEmail());
+        }
+    }
+
+
+
 }

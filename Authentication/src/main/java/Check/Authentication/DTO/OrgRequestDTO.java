@@ -1,5 +1,7 @@
 package Check.Authentication.DTO;
 
+import Check.Authentication.enums.Subscription;
+
 public class OrgRequestDTO {
 
 
@@ -33,4 +35,7 @@ public class OrgRequestDTO {
     }
 
 
+    public Subscription getSubscription() {
+        return null;
+    }
 }

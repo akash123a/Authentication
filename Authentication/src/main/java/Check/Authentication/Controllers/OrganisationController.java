@@ -59,6 +59,8 @@ package Check.Authentication.Controllers;
 import Check.Authentication.DTO.OrgRequestDTO;
 import Check.Authentication.DTO.OrganisationDTO;
 import Check.Authentication.Entities.Organisation;
+import Check.Authentication.Entities.OrganisationAdmin;
+import Check.Authentication.Repositories.OrganisationAdminRepository;
 import Check.Authentication.Repositories.OrganisationRepository;
 import Check.Authentication.Services.OrganisationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +81,9 @@ public class OrganisationController {
 
     @Autowired
     private OrganisationRepository organisationRepository;
+
+    @Autowired
+    private OrganisationAdminRepository organisationAdminRepository;
 
     // ✅ Get all organisations
     @GetMapping
@@ -107,21 +112,63 @@ public class OrganisationController {
     }
 
     // ✅ Catch data (Refactored to prevent duplicate email registration)
+//    @PostMapping("/data")
+//    public ResponseEntity<?> catchData(@RequestBody OrgRequestDTO orgRequestDTO) {
+//        Optional<Organisation> existingOrg = organisationRepository.findByEmail(orgRequestDTO.getEmail());
+//
+//        if (existingOrg.isPresent()) {
+//            return ResponseEntity.badRequest().body("Email already exists!");
+//        }
+//
+//        Organisation organisation = new Organisation();
+//        organisation.setName(orgRequestDTO.getName());
+//        organisation.setEmail(orgRequestDTO.getEmail());
+//        organisation.setPassword("password"); // Consider encrypting password before saving
+//
+//        Organisation savedOrganisation = organisationRepository.save(organisation);
+//        OrganisationAdmin organisationAdmin = new OrganisationAdmin();
+//         organisationAdmin.setAdminName(organisation.getName());
+//         organisationAdmin.setEmail(organisation.getEmail());
+//
+//            organisationAdminRepository.save(organisationAdmin);
+//           return ResponseEntity.ok(savedOrganisation);
+//    }
+
+
+
+
     @PostMapping("/data")
     public ResponseEntity<?> catchData(@RequestBody OrgRequestDTO orgRequestDTO) {
         Optional<Organisation> existingOrg = organisationRepository.findByEmail(orgRequestDTO.getEmail());
 
         if (existingOrg.isPresent()) {
-            return ResponseEntity.badRequest().body("Email already exists!");
+            // ✅ If organisation exists, update its subscription
+            Organisation organisation = existingOrg.get();
+            organisation.setSubscription(orgRequestDTO.getSubscription());  // Update subscription
+            organisationRepository.save(organisation);
+
+            return ResponseEntity.ok().body("Subscription updated for " + orgRequestDTO.getEmail());
         }
 
+        // ✅ If organisation does not exist, create new organisation
         Organisation organisation = new Organisation();
         organisation.setName(orgRequestDTO.getName());
         organisation.setEmail(orgRequestDTO.getEmail());
-        organisation.setPassword("default_password"); // Consider encrypting password before saving
+        organisation.setPassword("password"); // 🔴 TODO: Encrypt before saving!
+        organisation.setSubscription(orgRequestDTO.getSubscription());
 
         Organisation savedOrganisation = organisationRepository.save(organisation);
-        return ResponseEntity.ok(savedOrganisation);
+
+        // ✅ Automatically create an admin for this organisation
+        OrganisationAdmin organisationAdmin = new OrganisationAdmin();
+        organisationAdmin.setAdminName(organisation.getName());
+        organisationAdmin.setEmail(organisation.getEmail());
+        organisationAdmin.setOrganisation(savedOrganisation);
+
+        organisationAdminRepository.save(organisationAdmin);
+
+        return ResponseEntity.ok().body("Organisation registered successfully!");
     }
+
 
 }
