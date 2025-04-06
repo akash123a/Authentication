@@ -65,7 +65,9 @@ import Check.Authentication.Repositories.OrganisationAdminRepository;
 import Check.Authentication.Repositories.OrganisationRepository;
 import Check.Authentication.Repositories.UserRepository;
 import Check.Authentication.Services.OrganisationService;
+import Check.Authentication.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,7 +76,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/organisations")
+@RequestMapping("/api/organisation")
 @CrossOrigin(origins = "*")  // Allow requests from all origins
 public class OrganisationController {
 
@@ -89,6 +91,9 @@ public class OrganisationController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    JwtUtil jwtUtil;
 
     // ✅ Get all organisations
     @GetMapping
@@ -175,30 +180,26 @@ public class OrganisationController {
         return ResponseEntity.ok().body("Organisation registered successfully!");
     }
 
-    public void inviteMember(String username, String inviteEmail, String role) {
-        // Fetch organization from repository
-        Optional<Organisation> optionalOrg = organisationRepository.findByEmail(username);
+    @PostMapping("/invite")
+    public ResponseEntity inviteMember(@RequestHeader("Authorization") String authHeader,
+                                       @RequestParam String inviteEmail,
+                                       @RequestParam String role){
+        String token = authHeader.substring(7);
+        String username = jwtUtil.extractUsername(token);
 
-        if (optionalOrg.isPresent()) {
-            Organisation org = optionalOrg.get(); // Get the actual object
-
-            // Call separate method to create user with org ID
-            createUser(inviteEmail, role, org.getId());
-            System.out.println("Invited successfully");
-        } else {
-            System.out.println("Organization not found for email: " + username);
-            throw new RuntimeException("Organization not found");
+        if(jwtUtil.validateToken(token,username)) {
+            try {
+                organisationService.inviteMember(username,inviteEmail,role);
+                return new ResponseEntity("User Invited Successfully", HttpStatus.OK);
+            }catch (Exception e){
+                return new ResponseEntity("Inviting User Failed",HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
+        return new ResponseEntity("Invalid User",HttpStatus.UNAUTHORIZED);
     }
 
-    // Separate method for user creation
-    private void createUser(String inviteEmail, String role, UUID orgId) {
-        User newUser = new User();
-        newUser.setEmail(inviteEmail);
-        newUser.setRole(role);
-        newUser.setId(orgId); // Store only UUID instead of full Organization object
-        userRepository.save(newUser);
-    }
+
+
 
 
 

@@ -1,7 +1,9 @@
 package Check.Authentication.Entities;
 
+import Check.Authentication.enums.Role;
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Entity
@@ -9,44 +11,53 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false ,unique = true)
     private String email;
-
-    @Column(nullable = false)
-    private String role;
-
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    private boolean isActive = false;
 
-    @OneToMany(mappedBy = "assigned", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Task> assignedTasks;
-
-    @ManyToMany(mappedBy = "users")
-    private List<Project> projects;
+    @OneToMany
+    @JoinTable(
+            name = "user_subProject_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    @MapKeyColumn(name = "subProject_id") // Key column for the map
+    private Map<UUID, Roles> subProjectRole;
 
     @ManyToOne
-    @JoinColumn(name = "organisation_id", nullable = false)
+    @JoinColumn(name = "organization_id")
     private Organisation organisation;
+
+    @OneToMany(mappedBy = "assignedUser")
+    List<Task> assignedTasks; //  To remove
+
+    @ManyToMany(mappedBy = "members")
+    List<SubProject> projects;
 
     // Default constructor
     public User() {
     }
 
-    public User(UUID id, String name, String email, String role, String password, List<Task> assignedTasks, List<Project> projects, Organisation organisation) {
+    public User(UUID id, String name, String email, String password, Role role, boolean isActive, Map<UUID, Roles> subProjectRole, Organisation organisation, List<Task> assignedTasks, List<SubProject> projects) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.role = role;
         this.password = password;
+        this.role = role;
+        this.isActive = isActive;
+        this.subProjectRole = subProjectRole;
+        this.organisation = organisation;
         this.assignedTasks = assignedTasks;
         this.projects = projects;
-        this.organisation = organisation;
     }
 
     public UUID getId() {
@@ -73,20 +84,44 @@ public class User {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public Map<UUID, Roles> getSubProjectRole() {
+        return subProjectRole;
+    }
+
+    public void setSubProjectRole(Map<UUID, Roles> subProjectRole) {
+        this.subProjectRole = subProjectRole;
+    }
+
+    public Organisation getOrganisation() {
+        return organisation;
+    }
+
+    public void setOrganisation(Organisation organisation) {
+        this.organisation = organisation;
     }
 
     public List<Task> getAssignedTasks() {
@@ -97,19 +132,11 @@ public class User {
         this.assignedTasks = assignedTasks;
     }
 
-    public List<Project> getProjects() {
+    public List<SubProject> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<Project> projects) {
+    public void setProjects(List<SubProject> projects) {
         this.projects = projects;
-    }
-
-    public Organisation getOrganisation() {
-        return organisation;
-    }
-
-    public void setOrganisation(Organisation organisation) {
-        this.organisation = organisation;
     }
 }

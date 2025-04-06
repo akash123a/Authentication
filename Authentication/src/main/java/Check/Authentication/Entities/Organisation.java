@@ -1,5 +1,6 @@
 package Check.Authentication.Entities;
 
+import Check.Authentication.enums.Role;
 import Check.Authentication.enums.Subscription;
 import jakarta.persistence.*;
 
@@ -11,34 +12,55 @@ import java.util.UUID;
 public class Organisation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false,unique = true)
     private String name;
 
+    @Column(nullable = false,unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-     Subscription subscription;
+    Subscription subscription;
 
-    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Enumerated(EnumType.STRING)
+    Role role;
+
+    @Column(name = "order_id",nullable = false)
+    String orderId;
+
+    @OneToMany(mappedBy = "organisation",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<User> users;
+
+    @OneToMany(mappedBy = "organisation",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Project> projects;
+
+    @OneToMany(mappedBy = "organisation",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Roles> roles;
+
+
 
     // No-argument constructor
     public Organisation() {
     }
 
     // Parameterized constructor
-    public Organisation(UUID id, String name, String email, String password, Subscription subscription, List<User> users) {
+
+    public Organisation(UUID id, String name, String email, String password, Subscription subscription, Role role, String orderId, List<User> users, List<Project> projects, List<Roles> roles) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.subscription = subscription;
+        this.role = role;
+        this.orderId = orderId;
         this.users = users;
+        this.projects = projects;
+        this.roles = roles;
     }
 
     // Getters and Setters
@@ -82,6 +104,22 @@ public class Organisation {
         this.subscription = subscription;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
     public List<User> getUsers() {
         return users;
     }
@@ -90,5 +128,19 @@ public class Organisation {
         this.users = users;
     }
 
+    public List<Project> getProjects() {
+        return projects;
+    }
 
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+    public List<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
+    }
 }
