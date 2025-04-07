@@ -31,7 +31,7 @@ public class User {
     private List<Project> projects;
 
     @ManyToOne
-    @JoinColumn(name = "organisation_id", nullable = false)
+    @JoinColumn(name = "organisation_id", nullable = true)
     private Organisation organisation;
 
     // Default constructor

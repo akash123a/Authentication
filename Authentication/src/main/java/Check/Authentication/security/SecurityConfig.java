@@ -41,7 +41,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/auth/login",
                                 "/api/payment/before-payment" ,
-                                    "/api/organisations/data"
+                                    "/api/organisations/data",
+                                "/api/users/register"
 
                         ).permitAll()
                         .anyRequest().authenticated()
