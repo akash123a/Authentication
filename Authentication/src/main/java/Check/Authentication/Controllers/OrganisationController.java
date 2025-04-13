@@ -180,23 +180,23 @@ public class OrganisationController {
         return ResponseEntity.ok().body("Organisation registered successfully!");
     }
 
-    @PostMapping("/invite")
-    public ResponseEntity inviteMember(@RequestHeader("Authorization") String authHeader,
-                                       @RequestParam String inviteEmail,
-                                       @RequestParam String role){
-        String token = authHeader.substring(7);
-        String username = jwtUtil.extractUsername(token);
-
-        if(jwtUtil.validateToken(token,username)) {
-            try {
-                organisationService.inviteMember(username,inviteEmail,role);
-                return new ResponseEntity("User Invited Successfully", HttpStatus.OK);
-            }catch (Exception e){
-                return new ResponseEntity("Inviting User Failed",HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-        return new ResponseEntity("Invalid User",HttpStatus.UNAUTHORIZED);
-    }
+//    @PostMapping("/invite")
+//    public ResponseEntity inviteMember(@RequestHeader("Authorization") String authHeader,
+//                                       @RequestParam String inviteEmail,
+//                                       @RequestParam String role){
+//        String token = authHeader.substring(7);
+//        String username = jwtUtil.extractUsername(token);
+//
+//        if(jwtUtil.validateToken(token,username)) {
+//            try {
+//                organisationService.inviteMember(username,inviteEmail,role);
+//                return new ResponseEntity("User Invited Successfully", HttpStatus.OK);
+//            }catch (Exception e){
+//                return new ResponseEntity("Inviting User Failed",HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
+//        }
+//        return new ResponseEntity("Invalid User",HttpStatus.UNAUTHORIZED);
+//    }
 
 
 

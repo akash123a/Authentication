@@ -321,53 +321,53 @@ public class OrganisationService {
             System.out.println("Organisation not found for email: " + organisationDTO.getEmail());
         }
     }
-
-    public void inviteMember(String username, String inviteEmail, String role) {
-        Organisation org = organisationRepository.findByEmail(username)
-                .orElseThrow(() -> new RuntimeException("Organization not found"));
-
-        UUID orgId = org.getId();
-
-        // 1. Save the user with inactive status
-        createUser(inviteEmail, role, orgId);
-
-        // 2. Send invite email via Notification API
-        String notificationUrl = "http://localhost:8094/notification/api/inviteMail";
-        RestTemplate restTemplate = new RestTemplate();
-
-        Map<String, String> payload = new HashMap<>();
-        payload.put("userEmail", inviteEmail);
-        payload.put("orgName", org.getName());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Map<String, String>> request = new HttpEntity<>(payload, headers);
-
-        try {
-            ResponseEntity<String> response = restTemplate.postForEntity(notificationUrl, request, String.class);
-            System.out.println("Notification sent: " + response.getBody());
-        } catch (Exception e) {
-            System.out.println("Failed to send invite email: " + e.getMessage());
-//            throw new RuntimeException("Failed to send invite email", e);
-        }
-    }
-
-
-    private void createUser(String inviteEmail, String role, UUID orgId) {
-        Organisation org = organisationRepository.findById(orgId)
-                .orElseThrow(() -> new RuntimeException("Organization not found by ID"));
-
-        User user = new User();
-        user.setEmail(inviteEmail);
-        user.setRole(Role.valueOf(role));
-        user.setOrganisation(org);
-        user.setActive(false); // user inactive initially
-        user.setName("");
-        user.setPassword("");
-
-        userRepository.save(user);
-
-    }
+//
+//    public void inviteMember(String username, String inviteEmail, String role) {
+//        Organisation org = organisationRepository.findByEmail(username)
+//                .orElseThrow(() -> new RuntimeException("Organization not found"));
+//
+//        UUID orgId = org.getId();
+//
+//        // 1. Save the user with inactive status
+//        createUser(inviteEmail, role, orgId);
+//
+//        // 2. Send invite email via Notification API
+//        String notificationUrl = "http://localhost:8094/notification/api/inviteMail";
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        Map<String, String> payload = new HashMap<>();
+//        payload.put("userEmail", inviteEmail);
+//        payload.put("orgName", org.getName());
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        HttpEntity<Map<String, String>> request = new HttpEntity<>(payload, headers);
+//
+//        try {
+//            ResponseEntity<String> response = restTemplate.postForEntity(notificationUrl, request, String.class);
+//            System.out.println("Notification sent: " + response.getBody());
+//        } catch (Exception e) {
+//            System.out.println("Failed to send invite email: " + e.getMessage());
+////            throw new RuntimeException("Failed to send invite email", e);
+//        }
+//    }
+//
+//
+//    private void createUser(String inviteEmail, String role, UUID orgId) {
+//        Organisation org = organisationRepository.findById(orgId)
+//                .orElseThrow(() -> new RuntimeException("Organization not found by ID"));
+//
+//        User user = new User();
+//        user.setEmail(inviteEmail);
+//        user.setRole(Role.valueOf(role));
+//        user.setOrganisation(org);
+//        user.setActive(false); // user inactive initially
+//        user.setName("");
+//        user.setPassword("");
+//
+//        userRepository.save(user);
+//
+//    }
 
 
 

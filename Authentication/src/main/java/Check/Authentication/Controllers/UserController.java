@@ -27,22 +27,7 @@ public class UserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @PostMapping("/finalize")
-    public ResponseEntity finalizeUser(@RequestBody UserDTO userRequestDTO){
-        User user = userRepository.findByEmail(userRequestDTO.getEmail())
-                .orElseThrow(()-> new RuntimeException("User not found"));
-
-        user.setName(userRequestDTO.getName());
-        user.setPassword(userRequestDTO.getPassword());
-        user.setActive(true);
-        try {
-            userRepository.save(user);
-            return new ResponseEntity("User Finalized Successfully",HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity("Failed finalizing User",HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
+//
 
 
 }
