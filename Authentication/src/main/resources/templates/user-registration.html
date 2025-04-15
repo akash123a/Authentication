@@ -1,206 +1,206 @@
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>You're Invited!</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;        body {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #f4f4f4;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .container {&ndash;&gt;-->
+<!--&lt;!&ndash;            max-width: 600px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: auto;&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #ffffff;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        h2 {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #333;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        p {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #555;&ndash;&gt;-->
+<!--&lt;!&ndash;            line-height: 1.6;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        a.button {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: inline-block;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 12px 24px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #007bff;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #ffffff !important;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-decoration: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: bold;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        a.button:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #0056b3;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .footer {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #999;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;    <h2>You're Invited!</h2>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <p>Hello <strong th:text="${userName}">User</strong>,</p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <p>You’ve been invited to join our platform. Click the button below to complete your registration:</p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <a href="http://localhost:8094/user-registration-form" class="button">Complete your registration</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <p class="footer">If you didn’t expect this invitation, you can ignore this email.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+
+
+
+
+
+
+
+
+
+
 <!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<html lang="en">-->
 <!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>You're Invited!</title>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+<!--    <title>Complete Your Registration</title>-->
 <!--    <style>-->
 <!--        body {-->
-<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
-<!--            background-color: #f4f4f4;-->
-<!--            padding: 30px;-->
+<!--          font-family: Arial, sans-serif;-->
+<!--          background: #f1f5f9;-->
+<!--          display: flex;-->
+<!--          justify-content: center;-->
+<!--          align-items: center;-->
+<!--          height: 100vh;-->
 <!--        }-->
 
-<!--        .container {-->
-<!--            max-width: 600px;-->
-<!--            margin: auto;-->
-<!--            background-color: #ffffff;-->
-<!--            border-radius: 8px;-->
-<!--            padding: 20px;-->
-<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--        .form-container {-->
+<!--          max-width: 400px;-->
+<!--          width: 100%;-->
+<!--          padding: 2rem;-->
+<!--          background: white;-->
+<!--          border-radius: 8px;-->
+<!--          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);-->
 <!--        }-->
 
-<!--        h2 {-->
-<!--            color: #333;-->
-<!--            text-align: center;-->
+<!--        .form-container h2 {-->
+<!--          margin-bottom: 1.5rem;-->
+<!--          font-size: 1.25rem;-->
+<!--          font-weight: 600;-->
+<!--          text-align: center;-->
 <!--        }-->
 
-<!--        p {-->
-<!--            font-size: 16px;-->
-<!--            color: #555;-->
-<!--            line-height: 1.6;-->
+<!--        .form-group {-->
+<!--          margin-bottom: 1rem;-->
 <!--        }-->
 
-<!--        a.button {-->
-<!--            display: inline-block;-->
-<!--            margin-top: 20px;-->
-<!--            padding: 12px 24px;-->
-<!--            background-color: #007bff;-->
-<!--            color: #ffffff !important;-->
-<!--            text-decoration: none;-->
-<!--            border-radius: 5px;-->
-<!--            font-weight: bold;-->
+<!--        .form-group input {-->
+<!--          width: 100%;-->
+<!--          padding: 0.75rem;-->
+<!--          border: 1px solid #ccc;-->
+<!--          border-radius: 4px;-->
+<!--          font-size: 1rem;-->
 <!--        }-->
 
-<!--        a.button:hover {-->
-<!--            background-color: #0056b3;-->
+<!--        .form-group input:focus {-->
+<!--          border-color: #3b82f6;-->
+<!--          outline: none;-->
 <!--        }-->
 
-<!--        .footer {-->
-<!--            margin-top: 30px;-->
-<!--            font-size: 12px;-->
-<!--            color: #999;-->
-<!--            text-align: center;-->
+<!--        .submit-btn {-->
+<!--          width: 100%;-->
+<!--          padding: 0.75rem;-->
+<!--          background: #2563eb;-->
+<!--          color: white;-->
+<!--          border: none;-->
+<!--          border-radius: 4px;-->
+<!--          font-size: 1rem;-->
+<!--          cursor: pointer;-->
+<!--          transition: background 0.3s ease;-->
+<!--        }-->
+
+<!--        .submit-btn:hover {-->
+<!--          background: #1d4ed8;-->
 <!--        }-->
 <!--    </style>-->
 <!--</head>-->
 <!--<body>-->
-<!--<div class="container">-->
-<!--    <h2>You're Invited!</h2>-->
-
-<!--    <p>Hello <strong th:text="${userName}">User</strong>,</p>-->
-
-<!--    <p>You’ve been invited to join our platform. Click the button below to complete your registration:</p>-->
-
-<!--    <a href="http://localhost:8094/user-registration-form" class="button">Complete your registration</a>-->
-
-<!--    <p class="footer">If you didn’t expect this invitation, you can ignore this email.</p>-->
+<!--<div class="form-container">-->
+<!--    <h2>Complete Your Registration</h2>-->
+<!--    <form id="registrationForm">-->
+<!--        <div class="form-group">-->
+<!--            <input type="text" name="name" placeholder="Full Name" required />-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <input type="email" name="email" placeholder="Email" required />-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <input type="password" name="password" placeholder="Password" required />-->
+<!--        </div>-->
+<!--        <input type="hidden" name="token" id="tokenField" />-->
+<!--        <button type="submit" class="submit-btn">Register</button>-->
+<!--    </form>-->
 <!--</div>-->
+
+<!--<script>-->
+<!--    // Extract token from URL-->
+<!--    const urlParams = new URLSearchParams(window.location.search);-->
+<!--    const token = urlParams.get("token");-->
+<!--    if (token) {-->
+<!--      document.getElementById("tokenField").value = token;-->
+<!--    }-->
+
+<!--    // Handle form submission-->
+<!--    document.getElementById("registrationForm").addEventListener("submit", async function (e) {-->
+<!--      e.preventDefault();-->
+
+<!--      const formData = {-->
+<!--        name: this.name.value,-->
+<!--        email: this.email.value,-->
+<!--        password: this.password.value,-->
+<!--        token: this.token.value-->
+<!--      };-->
+
+<!--      try {-->
+<!--        const response = await fetch("http://localhost:8094/register", {-->
+<!--          method: "POST",-->
+<!--          headers: {-->
+<!--            "Content-Type": "application/json"-->
+<!--          },-->
+<!--          body: JSON.stringify(formData)-->
+<!--        });-->
+
+<!--        if (response.ok) {-->
+<!--          alert("Registration successful!");-->
+<!--        } else {-->
+<!--          const err = await response.json();-->
+<!--          alert("Registration failed: " + (err.message || "Unknown error"));-->
+<!--        }-->
+<!--      } catch (error) {-->
+<!--        console.error(error);-->
+<!--        alert("Registration failed. Please try again.");-->
+<!--      }-->
+<!--    });-->
+<!--</script>-->
 <!--</body>-->
 <!--</html>-->
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Complete Your Registration</title>
-    <style>
-        body {
-          font-family: Arial, sans-serif;
-          background: #f1f5f9;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-        }
-
-        .form-container {
-          max-width: 400px;
-          width: 100%;
-          padding: 2rem;
-          background: white;
-          border-radius: 8px;
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-container h2 {
-          margin-bottom: 1.5rem;
-          font-size: 1.25rem;
-          font-weight: 600;
-          text-align: center;
-        }
-
-        .form-group {
-          margin-bottom: 1rem;
-        }
-
-        .form-group input {
-          width: 100%;
-          padding: 0.75rem;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          font-size: 1rem;
-        }
-
-        .form-group input:focus {
-          border-color: #3b82f6;
-          outline: none;
-        }
-
-        .submit-btn {
-          width: 100%;
-          padding: 0.75rem;
-          background: #2563eb;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: background 0.3s ease;
-        }
-
-        .submit-btn:hover {
-          background: #1d4ed8;
-        }
-    </style>
-</head>
-<body>
-<div class="form-container">
-    <h2>Complete Your Registration</h2>
-    <form id="registrationForm">
-        <div class="form-group">
-            <input type="text" name="name" placeholder="Full Name" required />
-        </div>
-        <div class="form-group">
-            <input type="email" name="email" placeholder="Email" required />
-        </div>
-        <div class="form-group">
-            <input type="password" name="password" placeholder="Password" required />
-        </div>
-        <input type="hidden" name="token" id="tokenField" />
-        <button type="submit" class="submit-btn">Register</button>
-    </form>
-</div>
-
-<script>
-    // Extract token from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
-    if (token) {
-      document.getElementById("tokenField").value = token;
-    }
-
-    // Handle form submission
-    document.getElementById("registrationForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const formData = {
-        name: this.name.value,
-        email: this.email.value,
-        password: this.password.value,
-        token: this.token.value
-      };
-
-      try {
-        const response = await fetch("http://localhost:8094/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(formData)
-        });
-
-        if (response.ok) {
-          alert("Registration successful!");
-        } else {
-          const err = await response.json();
-          alert("Registration failed: " + (err.message || "Unknown error"));
-        }
-      } catch (error) {
-        console.error(error);
-        alert("Registration failed. Please try again.");
-      }
-    });
-</script>
-</body>
-</html>
