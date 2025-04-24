@@ -93,7 +93,11 @@ public class UserService {
         user.setPassword(dto.getPassword()); // You should encode the password (BCrypt)
 
         // Optional: set a default role
-        user.setRole("MEMBER");
+//        user.setRole("MEMBER");
+
+
+        // 👇 Ye line important hai!
+        user.setRole(dto.getRole() != null ? dto.getRole() : "MEMBER");
 
         // Assign default organisation
         Organisation org = organisationRepository.findById(UUID.fromString("3897cf16-e23d-4a30-b94b-55c09717d879"))

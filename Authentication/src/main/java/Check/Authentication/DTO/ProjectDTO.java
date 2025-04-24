@@ -1,3 +1,7 @@
+//
+//
+//
+//
 //package Check.Authentication.DTO;
 //
 //import java.util.List;
@@ -9,9 +13,7 @@
 //    private UUID organisationId;
 //    private List<UUID> userIds;
 //
-//    // Constructor
-//    public ProjectDTO() {
-//    }
+//    public ProjectDTO() {}
 //
 //    public ProjectDTO(String name, String description, UUID organisationId, List<UUID> userIds) {
 //        this.name = name;
@@ -20,7 +22,6 @@
 //        this.userIds = userIds;
 //    }
 //
-//    // Getters
 //    public String getName() {
 //        return name;
 //    }
@@ -37,7 +38,6 @@
 //        return userIds;
 //    }
 //
-//    // Setters
 //    public void setName(String name) {
 //        this.name = name;
 //    }
@@ -63,24 +63,24 @@
 
 
 
+
 package Check.Authentication.DTO;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ProjectDTO {
     private String name;
     private String description;
-    private UUID organisationId;
-    private List<UUID> userIds;
+    private String organisationId; // keep this as string if it's passed as UUID string
+    private List<String> usernames; // Changed from List<UUID> userIds
 
     public ProjectDTO() {}
 
-    public ProjectDTO(String name, String description, UUID organisationId, List<UUID> userIds) {
+    public ProjectDTO(String name, String description, String organisationId, List<String> usernames) {
         this.name = name;
         this.description = description;
         this.organisationId = organisationId;
-        this.userIds = userIds;
+        this.usernames = usernames;
     }
 
     public String getName() {
@@ -91,12 +91,12 @@ public class ProjectDTO {
         return description;
     }
 
-    public UUID getOrganisationId() {
+    public String getOrganisationId() {
         return organisationId;
     }
 
-    public List<UUID> getUserIds() {
-        return userIds;
+    public List<String> getUsernames() {
+        return usernames;
     }
 
     public void setName(String name) {
@@ -107,11 +107,11 @@ public class ProjectDTO {
         this.description = description;
     }
 
-    public void setOrganisationId(UUID organisationId) {
+    public void setOrganisationId(String organisationId) {
         this.organisationId = organisationId;
     }
 
-    public void setUserIds(List<UUID> userIds) {
-        this.userIds = userIds;
+    public void setUsernames(List<String> usernames) {
+        this.usernames = usernames;
     }
 }

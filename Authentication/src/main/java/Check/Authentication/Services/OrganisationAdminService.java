@@ -36,13 +36,36 @@ public class OrganisationAdminService {
     private OrganisationAdminRepository adminRepository;
 
     // ✅ Save admin (checks for duplicate email)
+//    public OrganisationAdmin saveAdmin(OrganisationAdmin admin) {
+//        Optional<OrganisationAdmin> existingAdmin = adminRepository.findByEmail(admin.getEmail());
+//        if (existingAdmin.isPresent()) {
+//            throw new RuntimeException("Admin with this email already exists!");
+//        }
+//        return adminRepository.save(admin);
+//    }
+
     public OrganisationAdmin saveAdmin(OrganisationAdmin admin) {
         Optional<OrganisationAdmin> existingAdmin = adminRepository.findByEmail(admin.getEmail());
         if (existingAdmin.isPresent()) {
             throw new RuntimeException("Admin with this email already exists!");
         }
+
+        // 🔐 Set default role if not already set
+        if (admin.getRole() == null || admin.getRole().isBlank()) {
+            admin.setRole("ADMIN");
+        }
+
         return adminRepository.save(admin);
     }
+
+
+
+
+
+
+
+
+
 
     // ✅ Find admin by email
     public Optional<OrganisationAdmin> findByEmail(String email) {

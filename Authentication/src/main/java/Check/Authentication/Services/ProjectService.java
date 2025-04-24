@@ -81,17 +81,44 @@ public class ProjectService {
         this.userRepository = userRepository;
     }
 
+//    public Project createProject(ProjectDTO projectDTO) {
+//        if (projectDTO.getOrganisationId() == null) {
+//            throw new IllegalArgumentException("Organisation ID is null.");
+//        }
+//
+//        Organisation organisation = organisationRepository.findById(projectDTO.getOrganisationId())
+//                .orElseThrow(() -> new RuntimeException("Organisation not found with ID: " + projectDTO.getOrganisationId()));
+//
+//        List<User> users = userRepository.findAllById(projectDTO.getUserIds());
+//        if (users.isEmpty()) {
+//            throw new IllegalArgumentException("No valid users found for provided IDs.");
+//        }
+//
+//        Project project = new Project();
+//        project.setName(projectDTO.getName());
+//        project.setDescription(projectDTO.getDescription());
+//        project.setOrganisation(organisation);
+//        project.setUsers(users);
+//
+//        return projectRepository.save(project);
+//    }
+
+
+
     public Project createProject(ProjectDTO projectDTO) {
         if (projectDTO.getOrganisationId() == null) {
             throw new IllegalArgumentException("Organisation ID is null.");
         }
 
-        Organisation organisation = organisationRepository.findById(projectDTO.getOrganisationId())
-                .orElseThrow(() -> new RuntimeException("Organisation not found with ID: " + projectDTO.getOrganisationId()));
+        UUID orgId = UUID.fromString(projectDTO.getOrganisationId());
 
-        List<User> users = userRepository.findAllById(projectDTO.getUserIds());
+        Organisation organisation = organisationRepository.findById(orgId)
+                .orElseThrow(() -> new RuntimeException("Organisation not found with ID: " + orgId));
+
+        // Fetch users by names (since 'name' is the correct field in your entity)
+        List<User> users = userRepository.findByNameIn(projectDTO.getUsernames());
         if (users.isEmpty()) {
-            throw new IllegalArgumentException("No valid users found for provided IDs.");
+            throw new IllegalArgumentException("No valid users found for provided names.");
         }
 
         Project project = new Project();
@@ -102,4 +129,6 @@ public class ProjectService {
 
         return projectRepository.save(project);
     }
+
+
 }
